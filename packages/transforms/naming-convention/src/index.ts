@@ -24,7 +24,7 @@ import {
   pascalCase,
   pathCase,
   sentenceCase,
-  snakeCase,
+  snakeCase as originalSnakeCase,
 } from 'change-case';
 
 import { upperCase } from 'upper-case';
@@ -33,6 +33,9 @@ import { lowerCase } from 'lower-case';
 type NamingConventionFn = (input: string) => string;
 type NamingConventionType = YamlConfig.NamingConventionTransformConfig['typeNames'];
 
+function snakeCase(input: string) {
+  return originalSnakeCase(input, { stripRegexp: /[^A-Z0-9_]+/gi });
+}
 const NAMING_CONVENTIONS: Record<NamingConventionType, NamingConventionFn> = {
   camelCase,
   capitalCase,
